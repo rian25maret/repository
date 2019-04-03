@@ -1,0 +1,55 @@
+#Menampilkan node 
+class Node:    
+  def __init__(self,data):    
+    self.data = data;    
+    self.next = None;    
+     
+class MembuatUrutan:    
+  #Deklarasi head dan tail poninter sebagai null
+  def __init__(self):    
+    self.head = Node(None);    
+    self.tail = Node(None);    
+    self.head.next = self.tail;    
+    self.tail.next = self.head;    
+        
+  #fungsi menambahkan node pada akhir
+  def tambahkan_node(self,data):    
+    newNode = Node(data);    
+    #mengecek jika list kosong
+    if self.head.data is None:    
+      #jika list kosong head dan tail sebagai node
+      self.head = newNode;    
+      self.tail = newNode;    
+      newNode.next = self.head;    
+    else:    
+      #tail menjadi node baru
+      self.tail.next = newNode;    
+      #node baru menjadi tail
+      self.tail = newNode;    
+      #circular linked list
+      self.tail.next = self.head;    
+     
+  #menampilkan node
+  def tampilkan_node(self):    
+    current = self.head;    
+    if self.head is None:    
+      print("List is empty");    
+      return;    
+    else:    
+        print("Node dari circular linked list: ")
+        #cetak setiap node
+        print(current.data),    
+        while(current.next != self.head):    
+            current = current.next;    
+            print(current.data),    
+     
+     
+class CircularLinkedList:    
+  cl = MembuatUrutan();    
+  #menambahkan data
+  cl.tambahkan_node(3);    
+  cl.tambahkan_node(7);    
+  cl.tambahkan_node(4);    
+  cl.tambahkan_node(9);    
+  #menampilkan semua node
+  cl.tampilkan_node();    
