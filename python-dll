@@ -1,0 +1,64 @@
+class Node(object):
+ 
+    def __init__(self, data, prev, next):
+        self.data = data
+        self.prev = prev
+        self.next = next
+ 
+ 
+class DoubleList(object):
+ 
+    head = None
+    tail = None
+ 
+    def tambahkan_node(self, data):
+        node_baru = Node(data, None, None)
+        if self.head is None:
+            self.head = self.tail = node_baru
+        else:
+            node_baru.prev = self.tail
+            node_baru.next = None
+            self.tail.next = node_baru
+            self.tail = node_baru
+ 
+    def hapus_node(self, nilai_node):
+        node_sekarang = self.head
+ 
+        while node_sekarang is not None:
+            if node_sekarang.data == nilai_node:
+                #Jika bukan node pertama
+                if node_sekarang.prev is not None:
+                    node_sekarang.prev.next = node_sekarang.next
+                    node_sekarang.next.prev = node_sekarang.prev
+                else:
+                    #Head menjadi pertama dan sebelum head menjadi kosong
+                    self.head = node_sekarang.next
+                    node_sekarang.next.prev = None
+ 
+            node_sekarang = node_sekarang.next
+ 
+    def tampilkan_node(self):
+        print ("Data yang ditampilkan:")
+        node_sekarang = self.head
+        while node_sekarang is not None:
+            print (node_sekarang.prev.data if hasattr(node_sekarang.prev, "data") else None,)
+            print (node_sekarang.data,)
+            print (node_sekarang.next.data if hasattr(node_sekarang.next, "data") else None)
+ 
+            node_sekarang = node_sekarang.next
+        print ("*"*50)
+ 
+ 
+d = DoubleList()
+ 
+d.tambahkan_node(4)
+d.tambahkan_node(6)
+d.tambahkan_node(25)
+d.tambahkan_node(50)
+ 
+d.tampilkan_node()
+ 
+d.hapus_node(50)
+d.hapus_node(6)
+ 
+d.tampilkan_node()
